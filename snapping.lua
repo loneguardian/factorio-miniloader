@@ -172,7 +172,7 @@ end
 
 -- called when entity was rotated or non loader was built
 function snapping.check_for_loaders(event)
-  local entity = event.created_entity or event.entity
+  local entity = event.created_entity or event.entity or event.destination
   if not is_belt(entity) then
     return
   end
