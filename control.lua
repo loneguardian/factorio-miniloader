@@ -175,6 +175,13 @@ local function on_rotated(ev)
   end
 end
 
+local function on_entity_cloned(ev)
+  if not (ev.destination and ev.destination.valid) then return end
+  if use_snapping then
+    snapping.check_for_loaders(ev)
+  end
+end
+
 local function on_miniloader_mined(ev)
   local entity = ev.entity
   local buffer = ev.buffer and ev.buffer.valid and ev.buffer
@@ -423,6 +430,7 @@ script.on_configuration_changed(on_configuration_changed)
 event.register(defines.events.on_built_entity, on_player_built)
 event.register(defines.events.on_robot_built_entity, on_robot_built)
 event.register(defines.events.on_player_rotated_entity, on_rotated)
+event.register(defines.events.on_entity_cloned, on_entity_cloned)
 
 event.register(defines.events.on_pre_player_mined_item, on_pre_player_mined_item)
 event.register(defines.events.on_player_mined_entity, on_player_mined_entity)
